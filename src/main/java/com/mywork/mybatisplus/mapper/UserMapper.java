@@ -21,4 +21,6 @@ public interface UserMapper extends BaseMapper<User> {
 
     @Select("select p.product_name product_name,u.username from product p,sys_user u where p.user_id=u.id and u.id=#{id}")
     List<ProductVO> productList(Serializable id);
+
+    List<User> findAll();
 }

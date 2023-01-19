@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间指定具体的 mapper 的类 -->
+<mapper namespace="com.mywork.mybatisplus.mapper.UserMapper">
+    <!-- 如果未映射别名，返回值类型需要使用全限定名 -->
+    <select id="findAll" resultType="com.mywork.mybatisplus.domain.User">
+        select *
+        from sys_user
+    </select>
+</mapper>
