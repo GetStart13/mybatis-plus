@@ -29,7 +29,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- mybatisPlus 起步依赖 -->
+        <!-- mybatisPlus 起步依赖，mybatis-plus 依赖不会自动注入 SqlSessionFactory 和 SqlSessionTemplate -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
