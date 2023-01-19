@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 @SpringBootTest
-class MybatisplusApplicationTests {
+class MybatisPlusApplicationTests {
 
     @Test
     void contextLoads() {
