@@ -2,6 +2,7 @@ package com.mywork.mybatisplus.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mywork.mybatisplus.domain.User;
 import com.mywork.mybatisplus.domain.vo.ProductVO;
@@ -94,5 +95,12 @@ class sysuserMapperTest {
         wrapper.allEq(map);
         System.out.println(voMapper.selectList(wrapper));
     }
-    //
+
+    @Test
+    void selectOneTest() {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("username", "谢洪1");
+        User user = userMapper.selectOne(wrapper);
+        System.out.println(user);
+    }
 }
