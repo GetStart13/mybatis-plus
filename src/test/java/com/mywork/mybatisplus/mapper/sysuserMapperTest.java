@@ -1,7 +1,9 @@
 package com.mywork.mybatisplus.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mywork.mybatisplus.domain.User;
@@ -101,6 +103,18 @@ class sysuserMapperTest {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("username", "谢洪1");
         User user = userMapper.selectOne(wrapper);
+        System.out.println(user);
+
+        // 使用 lambda 表达式 u -> u.getName() 作为入参将会报错，而使用方法引用 User::getName 作为入参可以正常执行
+        User selectOne = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(v -> v.getName(), "谢洪"));
+        System.out.println(selectOne);
+    }
+
+    @Test
+    void listOneTest() {
+        User user = new LambdaQueryChainWrapper<>(userMapper)
+                .eq(User::getName, "谢洪")
+                .one();
         System.out.println(user);
     }
 }

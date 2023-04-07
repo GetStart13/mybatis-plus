@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.myWork</groupId>
     <artifactId>mybatis-plus</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>mybatis-plus</name>
     <description>Demo project for Spring Boot</description>
     <properties>
@@ -62,9 +62,26 @@
 
     <build>
         <plugins>
+            <!-- 打包成 jar -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.7.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>spring-boot</classifier>
+                            <mainClass>
+                                com.mywork.mybatisplus.MybatisPlusApplication
+                            </mainClass>
+                            <!-- 指示 spring-boot-maven-plugin 使用 PropertiesLauncher -->
+                            <layout>ZIP</layout>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
