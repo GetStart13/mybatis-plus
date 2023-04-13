@@ -13,6 +13,8 @@ public class User {
     @TableField("username")// 绑定数据库字段名
     private String name;
 
+    private Integer age;
+
     @TableLogic// 设置逻辑删除，需要在配置文件配置信息，since 3.3.0,配置后可以忽略不配置实体属性 @TableLogic 注解
     private int delStatus;
 
@@ -84,16 +86,11 @@ public class User {
         this.ignore = ignore;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", delStatus=" + delStatus +
-                ", gender=" + gender +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
+    public Integer getAge() {
+        return age;
     }
 
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 }
