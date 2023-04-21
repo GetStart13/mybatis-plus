@@ -1,6 +1,5 @@
 package com.mywork.mybatisplus.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mywork.mybatisplus.domain.User;
 import com.mywork.mybatisplus.domain.vo.ProductVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Mapper
-public interface UserMapper extends BaseMapper<User> {
+public interface UserMapper extends BatchInsertUserMapper<User> {
     /**
      * 因为 select 是 mybatis 的东西，但是 ProductVO 又是 mybatisPlus 的东西，所以
      * 两者组合起来就会有问题，因为上边 BaseMapper 的泛型是 User，所以 ProductVO 里的任何 mybatisPlus

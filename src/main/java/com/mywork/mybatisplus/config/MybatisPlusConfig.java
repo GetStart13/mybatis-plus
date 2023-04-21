@@ -1,4 +1,4 @@
-package com.mywork.mybatisplus.page_divide;
+package com.mywork.mybatisplus.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
@@ -11,10 +11,23 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class MybatisPlusConfig {
+    /**
+     * mybatis plus 分页插件配置
+     *
+     * @return bean
+     */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return interceptor;
+    }
+
+    /**
+     * 批量插入配置
+     */
+    @Bean
+    public BatchValuesInsert batchValuesInsert() {
+        return new BatchValuesInsert();
     }
 }

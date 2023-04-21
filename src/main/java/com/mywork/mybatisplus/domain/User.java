@@ -15,7 +15,9 @@ public class User {
 
     private Integer age;
 
-    @TableLogic// 设置逻辑删除，需要在配置文件配置信息，since 3.3.0,配置后可以忽略不配置实体属性 @TableLogic 注解
+    // @TableLogic 设置逻辑删除，需要在配置文件配置逻辑删除字段信息；
+    // since 3.3.0 之后，有 配置文件 和 注解 两种方式，只需要配置其中一种方式就能够实现逻辑删除
+    @TableLogic
     private int delStatus;
 
     private GenderEnum gender;// 枚举
