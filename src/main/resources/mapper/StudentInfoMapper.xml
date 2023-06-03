@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatis_plus.mapper.StudentInfoMapper">
+
+    <resultMap id="studentResultMap" type="com.example.mybatis_plus.domain.StudentInfo">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="studentNumber" column="student_number"/>
+        <result property="studentName" column="student_name"/>
+    </resultMap>
+
+    <!-- 定义一个使用频率高的 sql 语句，在使用时通过 <include> 标签引入 -->
+    <sql id="selectAll">
+        select id, user_id, student_number, student_name
+        from student_info
+    </sql>
+
+    <!-- parameterType: 可选参数，定义与否无影响，mybatis 会自动判断入参类型 -->
+    <update id="updateByIdForXml" parameterType="com.example.mybatis_plus.domain.StudentInfo">
+        update student_info
+        <set>
+            <trim suffixOverrides=",">
+                <if test="userId != null">user_id = #{userId},</if>
+                <if test="studentNumber != null">student_number = #{studentNumber},</if>
+                <if test="studentName != null">student_name = #{studentName},</if>
+            </trim>
+        </set>
+        <where>id = #{id}</where>
+    </update>
+
+    <select id="findAllForXml" resultType="com.example.mybatis_plus.domain.StudentInfo">
+        <include refid="selectAll"/>
+        <!-- where 标签会移除第一个条件的 and 或 or ，且 if 条件都不满足时不会插入 where 关键字 -->
+        <where>
+            <if test="id != null">and id = #{id}</if>
+            <if test="userId != null">and user_id = #{userId}</if>
+            <if test="studentNumber != null">and student_number = #{studentNumber}</if>
+            <if test="studentName != null">and student_name = #{studentName}</if>
+        </where>
+    </select>
+
+    <insert id="insertForXml">
+        insert into student_info
+        <!-- <trim> 标签对语句前后端部分进行剪切 -->
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="studentNumber != null">student_number,</if>
+            <if test="studentName != null">student_name,</if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="studentNumber != null">#{studentNumber},</if>
+            <if test="studentName != null">#{studentName},</if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatchForXml">
+        insert into student_info(id, user_id, student_number, student_name)
+        <!-- collection: 集合的变量命名，index: 当前迭代项的索引变量，item: 当前迭代项变量名，separator: 每次迭代间插入的字符串，
+             #{}: 预编译，通过 item.属性名 访问，mybatis 自动将属性名转化为 getter 访问器，
+             ${}: 置换符，可以直接通过 item.属性名 访问，也可以调用方法 -->
+        <foreach collection="list" index="i" item="studentInfo" open="values" separator=",">
+            (null, #{studentInfo.userId}, "${studentInfo.getStudentNumber()}",
+            "${list.get(i).getStudentName()}")
+        </foreach>
+    </insert>
+
+    <insert id="insertBatchUseArrayForXml">
+        insert into student_info(id, user_id, student_number, student_name)
+        <!-- 当 item 是数组时，预编译 #{} 无法通过索引访问数组元素，此时只能使用预编译 -->
+        <foreach collection="list" index="i" item="studentInfo" open="values" separator=",">
+            (null, ${studentInfo[0]}, "${studentInfo[1]}", "${studentInfo[2]}")
+        </foreach>
+    </insert>
+
+</mapper>

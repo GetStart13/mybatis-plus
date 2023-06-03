@@ -1,10 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 命名空间指定具体的 mapper 的类 -->
-<mapper namespace="com.mywork.mybatisplus.mapper.UserMapper">
+
+<!-- namespace 指定要映射的<<接口>>的全限定名 -->
+<mapper namespace="com.example.mybatis_plus.mapper.UserMapper">
+
+    <!-- 如果数据库字段名与属性名不一致，用 resultMap 定义结果集中的字段名与实体类属性的映射 -->
+    <!-- 如果一致，返回结果集中直接用 resultType 就能实现自动映射 -->
+    <resultMap id="userResultMap" type="com.example.mybatis_plus.domain.vo.UserVo">
+        <id property="id" column="id"/>
+        <result property="name" column="username"/>
+        <result property="age" column="age"/>
+        <result property="gender" column="gender"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <!-- 映射一对一的属性关系时，用 <association> 标签 -->
+        <association property="studentInfo" javaType="com.example.mybatis_plus.domain.StudentInfo" column="address"
+                     resultMap="studentResultMap"/>
+        <!-- 映射一对多的属性关系时，用 <collection> 标签，ofType 是非常重要的属性，它指定了传入集合的参数的类型 -->
+        <collection property="buys" javaType="ArrayList" ofType="com.example.mybatis_plus.domain.vo.ProductVo"
+                    resultMap="productResultMap"/>
+    </resultMap>
+
+    <resultMap id="productResultMap" type="com.example.mybatis_plus.domain.Product">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="productName" column="product_name"/>
+    </resultMap>
+
+    <resultMap id="studentResultMap" type="com.example.mybatis_plus.domain.StudentInfo">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="studentNumber" column="student_number"/>
+        <result property="studentName" column="student_name"/>
+    </resultMap>
+
     <!-- 如果未映射别名，返回值类型需要使用全限定名 -->
-    <select id="findAll" resultType="com.mywork.mybatisplus.domain.User">
+    <select id="findAll" resultType="com.example.mybatis_plus.domain.User">
         select *
         from sys_user
+    </select>
+
+    <select id="getUserVoById" resultMap="userResultMap">
+        select u.id,
+               u.username,
+               u.age,
+               u.gender,
+               u.create_time,
+               u.update_time,
+               u.is_deleted,
+               p.id,
+               p.user_id,
+               p.product_name,
+               s.id,
+               s.user_id,
+               s.student_number,
+               s.student_name
+        from sys_user u
+                 left join product p on p.user_id = u.id
+                 left join student_info s on u.id = s.user_id
+        where u.id = #{id}
     </select>
 </mapper>
