@@ -38,7 +38,7 @@ class SelectTest {
         User user = new User();
         user.setAge(24);
         Page<User> selectPage = userMapper.selectPage(userPage, new QueryWrapper<>(user).eq(false, "id", 7));
-        System.out.println(selectPage);
+        System.out.println("users: " + selectPage.getRecords());
         assertNotEquals(null, selectPage);
     }
 
@@ -51,7 +51,7 @@ class SelectTest {
                 new LambdaQueryWrapper<>(user)
                         .eq(true, User::getId, 7)
                         .eq(false, User::getName, "谢洪"));
-        System.out.println(selectPage);
+        System.out.println("users: " + selectPage.getRecords());
         assertNotEquals(null, selectPage);
 
         List<User> users = userMapper.selectList(new QueryWrapper<>(user));

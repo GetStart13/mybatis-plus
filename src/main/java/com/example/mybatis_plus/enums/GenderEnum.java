@@ -10,9 +10,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum GenderEnum {
     MEN(1, "男"), WOMAN(0, "女");
 
-    @EnumValue // 标记数据库存的值是 code
+    @EnumValue // 标记数据库存的值是 code 的值
     private final int code;
-    @JsonValue
+    @JsonValue // 标记此值作为 json 映射值
     private final String desc;
 
     GenderEnum(int code, String desc) {

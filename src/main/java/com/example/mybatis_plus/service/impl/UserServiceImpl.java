@@ -1,10 +1,13 @@
 package com.example.mybatis_plus.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.mybatis_plus.domain.User;
 import com.example.mybatis_plus.mapper.UserMapper;
 import com.example.mybatis_plus.service.UserService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p> 2023/7/26 </p>
@@ -16,4 +19,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+    @Override
+    public List<User> list() {
+        return super.list();
+    }
+
+    @Override
+    public boolean update(User user) {
+        return super.update(user, new LambdaQueryWrapper<User>().eq(User::getId, user.getId()));
+    }
 }
