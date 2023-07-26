@@ -17,6 +17,6 @@ public interface ProductMapper extends BaseMapper<Product> {
      * 但是驼峰命名会转换，所以需要注意 ProductVo 实体属性的命名，如果命名不对，将导致映射不对，但是查询总会成功，
      * 因为它直接执行 @Select 设置的语句，然后再根据查询结果给 ProductVo 属性赋值
      */
-    @Select("select p.product_name,u.username from product p,sys_user u where p.user_id=u.id and u.id=#{id}")
+    @Select("select p.product_name,u.username from product p left join sys_user u on p.user_id=u.id where u.id=#{id}")
     List<ProductVo> productListByUserId(Serializable id);
 }

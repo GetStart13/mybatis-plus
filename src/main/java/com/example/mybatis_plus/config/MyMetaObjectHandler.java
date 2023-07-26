@@ -1,13 +1,13 @@
-package com.example.mybatis_plus.utils;
+package com.example.mybatis_plus.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.example.mybatis_plus.domain.User;
 import org.apache.ibatis.reflection.MetaObject;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDateTime;
 
-@Component
+@Configuration
 public class MyMetaObjectHandler implements MetaObjectHandler {
     /**
      * 自动填充
