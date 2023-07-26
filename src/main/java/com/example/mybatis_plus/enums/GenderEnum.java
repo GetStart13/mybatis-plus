@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * <p> 2022/12/11 14:38
- * </p>有两种方式，一种是在字段上加注解，一种是实现 IEnum<> 接口
+ * <p> 2022/12/11 14:38 </p>
+ * 有两种方式，一种是在字段上加注解，一种是实现 IEnum 接口
  */
 public enum GenderEnum {
     MEN(1, "男"), WOMAN(0, "女");
@@ -20,4 +20,11 @@ public enum GenderEnum {
         this.desc = desc;
     }
 
+    public int getCode() {
+        return code;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
 }
