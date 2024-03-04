@@ -3,11 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.myWork</groupId>
+    <groupId>com.example</groupId>
     <artifactId>mybatis-plus</artifactId>
     <version>1.0.0</version>
     <name>mybatis-plus</name>
-    <description>Spring Boot with mybatis plus</description>
+    <description>Mybatis Plus sample with Spring Boot demo</description>
     <properties>
         <java.version>8</java.version>
         <maven.compiler.source>8</maven.compiler.source>

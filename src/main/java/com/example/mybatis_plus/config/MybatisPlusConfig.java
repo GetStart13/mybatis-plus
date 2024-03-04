@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Configuration;
 public class MybatisPlusConfig {
     /**
      * mybatis plus 分页插件配置
+     * <br> 注入分页配置 bean 后，使用 mybatis-plus 的分页查询功能可以识别分页参数
+     * <br> 若无分页配置，分页查询的分页参数无效
      *
      * @return bean
      */
